@@ -16,6 +16,25 @@ type User {
     id: ID!
     name: String!
     email: String!
+    posts: [Post!]!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Post {
+    id: ID!
+    title: String!
+    description: String!
+    user: User!
+    comments: [Comment!]!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Comment {
+    id: ID!
+    description: String!
+    post: Post!
     created_at: DateTime!
     updated_at: DateTime!
 }
