@@ -16,17 +16,18 @@ directive @security(depth: Int!, complexity: Int!) on OBJECT
 
 # Field directives
 directive @field(resolver: String!) on FIELD_DEFINITION
-directive @rename(attribute: String!) on FIELD_DEFINITION
+directive @rename(attribute: String!) on FIELD_DEFINITION | ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
 directive @find(model: String!) on FIELD_DEFINITION
 directive @first(model: String, scopes: [String!]) on FIELD_DEFINITION
 directive @paginate(defaultCount: Int, type: String, model: String, scopes: [String]) on FIELD_DEFINITION
 directive @all(relation: String, model: String, scopes: [String]) on FIELD_DEFINITION
 directive @rules(apply: [String!]!) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
 directive @validate(validator: String, rules: [String]) on ARGUMENT_DEFINITION | FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+directive @hash on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
 
-directive @create(model: String!, flatten: Boolean) on FIELD_DEFINITION
-directive @update(model: String!, flatten: Boolean) on FIELD_DEFINITION
-directive @delete(model: String!, flatten: Boolean) on FIELD_DEFINITION
+directive @create(model: String, flatten: Boolean) on FIELD_DEFINITION
+directive @update(model: String, flatten: Boolean) on FIELD_DEFINITION
+directive @delete(model: String, flatten: Boolean) on FIELD_DEFINITION
 
 directive @hasMany(type: String, relation: String, model: String, scopes: [String]) on FIELD_DEFINITION
 directive @belongsTo(relation: String) on FIELD_DEFINITION

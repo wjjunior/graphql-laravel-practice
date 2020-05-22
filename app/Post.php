@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Post extends Model
 {
+    protected $guarded = ['id'];
     //
     public function user() : BelongsTo
     {

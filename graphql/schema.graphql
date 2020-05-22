@@ -18,6 +18,33 @@ type Query {
     comment(id: ID @eq): Comment @first
 }
 
+input UserInput {
+    name: String!
+    email: String!
+    password: String!
+}
+
+input UpdateUserInput {
+    name: String!
+    email: String!
+    userId: ID!
+}
+
+input PostInput {
+    title: String!
+    description: String!
+    userId: ID! @rename(attribute: "user_id")
+}
+
+type Mutation {
+    createUser(input: UserInput!) : User
+    deleteUser(id: ID!) : User @delete
+    updateUser(input: UpdateUserInput) : User
+    myCreateUser(name: String!, email: String!, password: String! @hash) : User @create
+    createPost(input: PostInput!) : Post
+
+}
+
 type User {
     id: ID!
     name: String!
