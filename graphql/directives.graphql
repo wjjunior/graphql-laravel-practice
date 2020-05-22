@@ -1,0 +1,44 @@
+# Scalar directives
+directive @scalar(class: String!) on SCALAR
+
+# ENUM directives
+directive @enum(value: ID!) on ENUM_VALUE
+
+# Union directives
+directive @union(resolver: String!) on UNION
+
+# Interface directives
+directive @interface(resolver: String!) on INTERFACE
+
+# Object directives
+directive @group(middleware: [String!]!) on OBJECT
+directive @security(depth: Int!, complexity: Int!) on OBJECT
+
+# Field directives
+directive @field(resolver: String!) on FIELD_DEFINITION
+directive @rename(attribute: String!) on FIELD_DEFINITION
+directive @find(model: String!) on FIELD_DEFINITION
+directive @first(model: String, scopes: [String!]) on FIELD_DEFINITION
+directive @paginate(defaultCount: Int, type: String, model: String, scopes: [String]) on FIELD_DEFINITION
+directive @all(relation: String, model: String, scopes: [String]) on FIELD_DEFINITION
+directive @rules(apply: [String!]!) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+directive @validate(validator: String, rules: [String]) on ARGUMENT_DEFINITION | FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+
+directive @create(model: String!, flatten: Boolean) on FIELD_DEFINITION
+directive @update(model: String!, flatten: Boolean) on FIELD_DEFINITION
+directive @delete(model: String!, flatten: Boolean) on FIELD_DEFINITION
+
+directive @hasMany(type: String, relation: String, model: String, scopes: [String]) on FIELD_DEFINITION
+directive @belongsTo(relation: String) on FIELD_DEFINITION
+directive @hasOne(relation: String) on FIELD_DEFINITION
+directive @lazyLoad(relations: [String!]!) on FIELD_DEFINITION
+
+directive @middleware(checks: [String!]!) on FIELD_DEFINITION
+
+directive @cache(private: Boolean, maxAge: Int) on FIELD_DEFINITION
+
+# Argument directives
+directive @eq(key: String) on ARGUMENT_DEFINITION
+directive @neq(key: String) on ARGUMENT_DEFINITION
+directive @in(key: String) on ARGUMENT_DEFINITION
+directive @where(operator: String!, clause: String, key: String) on ARGUMENT_DEFINITION

@@ -9,14 +9,20 @@ scalar DateTimeTz @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Da
 
 type Query {
     users: [User!]! @paginate(defaultCount: 10)
-    user(id: ID @eq): User @find
+    user(id: ID @eq): User @find(model: "User")
+
+    posts: [Post!]! @paginate
+    post(id: ID @eq): Post @first
+
+    comments: [Comment!]! @paginate
+    comment(id: ID @eq): Comment @first
 }
 
 type User {
     id: ID!
     name: String!
     email: String!
-    posts: [Post!]!
+    posts: [Post!]! @hasMany
     created_at: DateTime!
     updated_at: DateTime!
 }
@@ -25,7 +31,7 @@ type Post {
     id: ID!
     title: String!
     description: String!
-    user: User!
+    user: User! @belongsTo
     comments: [Comment!]!
     created_at: DateTime!
     updated_at: DateTime!
@@ -34,7 +40,7 @@ type Post {
 type Comment {
     id: ID!
     description: String!
-    post: Post!
+    post: Post! @belongsTo
     created_at: DateTime!
     updated_at: DateTime!
 }
