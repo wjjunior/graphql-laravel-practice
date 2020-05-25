@@ -1,0 +1,48 @@
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    posts: [Post!]! @hasMany
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+input UserInput {
+    name: String!
+    email: String!
+    password: String!
+}
+
+input UpdateUserInput {
+    name: String!
+    email: String!
+    userId: ID!
+}
+
+input AuthData {
+    email: String!
+    password: String!
+}
+
+type LoginPayload {
+    auth_token: String
+    user: User
+}
+
+extend type Query @middleware(checks: ["jwt.auth"]){
+    users: [User!]! @paginate(defaultCount: 10)
+    user(id: ID @eq): User @find(model: "User")
+}
+
+extend type Mutation {
+    authUser(input: AuthData!) : LoginPayload
+    registerUser(input: AuthData) : LoginPayload
+}
+
+extend type Mutation @middleware(checks: ["jwt.auth"]){
+    createUser(input: UserInput!) : User
+    deleteUser(id: ID!) : User @delete
+    updateUser(input: UpdateUserInput) : User
+    myCreateUser(name: String!, email: String!, password: String! @hash) : User @create
+}
+

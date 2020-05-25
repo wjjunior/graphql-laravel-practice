@@ -1,0 +1,12 @@
+type Comment {
+    id: ID!
+    description: String!
+    post: Post! @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+extend type Query {
+    comments: [Comment!]! @paginate
+    comment(id: ID @eq): Comment @first
+}

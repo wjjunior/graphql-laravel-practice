@@ -7,67 +7,10 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 "A datetime and timezone string in ISO 8601 format `Y-m-dTH:i:sO`, e.g. `2020-04-20T13:53:12+02:00`."
 scalar DateTimeTz @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTimeTz")
 
-type Query {
-    users: [User!]! @paginate(defaultCount: 10)
-    user(id: ID @eq): User @find(model: "User")
+type Query
 
-    posts: [Post!]! @paginate
-    post(id: ID @eq): Post @first
+type Mutation
 
-    comments: [Comment!]! @paginate
-    comment(id: ID @eq): Comment @first
-}
-
-input UserInput {
-    name: String!
-    email: String!
-    password: String!
-}
-
-input UpdateUserInput {
-    name: String!
-    email: String!
-    userId: ID!
-}
-
-input PostInput {
-    title: String!
-    description: String!
-    userId: ID! @rename(attribute: "user_id")
-}
-
-type Mutation {
-    createUser(input: UserInput!) : User
-    deleteUser(id: ID!) : User @delete
-    updateUser(input: UpdateUserInput) : User
-    myCreateUser(name: String!, email: String!, password: String! @hash) : User @create
-    createPost(input: PostInput!) : Post
-
-}
-
-type User {
-    id: ID!
-    name: String!
-    email: String!
-    posts: [Post!]! @hasMany
-    created_at: DateTime!
-    updated_at: DateTime!
-}
-
-type Post {
-    id: ID!
-    title: String!
-    description: String!
-    user: User! @belongsTo
-    comments: [Comment!]!
-    created_at: DateTime!
-    updated_at: DateTime!
-}
-
-type Comment {
-    id: ID!
-    description: String!
-    post: Post! @belongsTo
-    created_at: DateTime!
-    updated_at: DateTime!
-}
+#import user.graphql
+#import post.graphql
+#import comment.graphql

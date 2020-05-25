@@ -34,7 +34,7 @@ directive @belongsTo(relation: String) on FIELD_DEFINITION
 directive @hasOne(relation: String) on FIELD_DEFINITION
 directive @lazyLoad(relations: [String!]!) on FIELD_DEFINITION
 
-directive @middleware(checks: [String!]!) on FIELD_DEFINITION
+directive @middleware(checks: [String!]) on FIELD_DEFINITION | OBJECT
 
 directive @cache(private: Boolean, maxAge: Int) on FIELD_DEFINITION
 
